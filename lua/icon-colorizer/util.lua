@@ -17,4 +17,12 @@ M.hl = function(name)
   return highlight
 end
 
+M.get_num_keys_from_table = function(table)
+  local numKeys = 0
+  for _, _ in pairs(table) do
+    numKeys = numKeys + 1
+  end
+  return numKeys
+end
+
 return M
