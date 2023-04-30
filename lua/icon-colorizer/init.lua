@@ -1,6 +1,7 @@
 local M = {}
 
 M.config = {
+  enable_theme_switching_autocmd = true,
   colors = {
     theme1 = "Identifier",      --#e6c384
     theme2 = "Type",            --#7aa89f
@@ -320,10 +321,24 @@ local create_default_icons = function(config)
   return icons
 end
 
-M.setup = function(config)
-  M.config = vim.tbl_extend("force", M.config, config or {})
+local set_icon_colors = function()
   local icons = create_default_icons(M.config)
   require("nvim-web-devicons").set_icon(icons)
+end
+
+M.setup = function(config)
+  M.config = vim.tbl_extend("force", M.config, config or {})
+  set_icon_colors()
+
+  if M.config.enable_theme_switching_autocmd then
+    local augroup = vim.api.nvim_create_augroup("IconColorizer", {})
+    vim.api.nvim_clear_autocmds({ group = augroup })
+
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      group = augroup,
+      callback = set_icon_colors,
+    })
+  end
 end
 
 return M
