@@ -289,7 +289,7 @@ M.config = {
   },
 }
 
-local util = require("icon-colorizer.util")
+local util = require("nvim-icon-colorizer.util")
 
 local create_default_icons = function(config)
   local icons = {}
