@@ -13,7 +13,6 @@ M.config = {
   },
   theme_icons = {
     theme1 = {
-      "Default",
       "Cobol",
       "Cobol",
       "Coffee",
@@ -50,6 +49,7 @@ M.config = {
       "SpecJs",
     },
     theme2 = {
+      "Default",
       "Jsx",
       "JavaScriptReactTest",
       "JavaScriptReactSpec",
