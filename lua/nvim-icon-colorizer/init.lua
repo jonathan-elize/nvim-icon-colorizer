@@ -3,13 +3,13 @@ local M = {}
 M.config = {
   enable_theme_switching_autocmd = true,
   colors = {
-    theme1 = "Identifier",      --#e6c384
-    theme2 = "Type",            --#7aa89f
-    theme3 = "String",          --#98bb6c
-    theme4 = "Special",         --#7fb4ca
-    theme5 = "Boolean",         --#ffa066
+    theme1 = "Identifier", --#e6c384
+    theme2 = "Type", --#7aa89f
+    theme3 = "String", --#98bb6c
+    theme4 = "Special", --#7fb4ca
+    theme5 = "Boolean", --#ffa066
     theme6 = "DiagnosticError", --#e82424
-    theme7 = "Statement",       --#957fb8
+    theme7 = "Statement", --#957fb8
   },
   theme_icons = {
     theme1 = {
@@ -291,9 +291,8 @@ M.config = {
 
 local util = require("nvim-icon-colorizer.util")
 
-local create_default_icons = function(config)
-  local icons = {}
-  local numHighlightGroups = util.get_num_keys_from_table(config.colors)
+M.create_default_icons = function(config)
+  local numHighlightGroups = #vim.tbl_keys(config.colors)
 
   local icon_theme_map = {}
   for theme, icons_list in pairs(config.theme_icons) do
@@ -308,9 +307,8 @@ local create_default_icons = function(config)
     local theme_key = icon_theme_map[icon.name] or ("theme" .. i)
     local target_theme = config.colors[theme_key]
 
-    local fg = util.hl(target_theme).fg
+    local fg = util.getHlFg(target_theme)
     icon.color = fg
-    icons[icon.name] = icon
 
     if i == numHighlightGroups then
       i = 1
@@ -318,11 +316,11 @@ local create_default_icons = function(config)
       i = i + 1
     end
   end
-  return icons
+  return devicons
 end
 
 local set_icon_colors = function()
-  local icons = create_default_icons(M.config)
+  local icons = M.create_default_icons(M.config)
   require("nvim-web-devicons").set_icon(icons)
 end
 
