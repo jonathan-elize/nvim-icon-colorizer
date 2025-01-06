@@ -319,14 +319,14 @@ M.create_default_icons = function(config)
   return devicons
 end
 
-local set_icon_colors = function()
+M.refresh_icon_colors = function()
   local icons = M.create_default_icons(M.config)
   require("nvim-web-devicons").set_icon(icons)
 end
 
 M.setup = function(config)
   M.config = vim.tbl_extend("force", M.config, config or {})
-  set_icon_colors()
+  M.refresh_icon_colors()
 
   if M.config.enable_theme_switching_autocmd then
     local augroup = vim.api.nvim_create_augroup("IconColorizer", {})
@@ -334,7 +334,7 @@ M.setup = function(config)
 
     vim.api.nvim_create_autocmd("ColorScheme", {
       group = augroup,
-      callback = set_icon_colors,
+      callback = M.refresh_icon_colors,
     })
   end
 end
